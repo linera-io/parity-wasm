@@ -122,7 +122,7 @@ pub enum Instruction {
 	Return,
 
 	Call(u32),
-	CallIndirect(u32, u8),
+	CallIndirect(u32, u32),
 
 	Drop,
 	Select,
@@ -1088,7 +1088,7 @@ impl Deserialize for Instruction {
 
 			CALLINDIRECT => CallIndirect(
 				VarUint32::deserialize(reader)?.into(),
-				Uint8::deserialize(reader)?.into(),
+				VarUint32::deserialize(reader)?.into(),
 			),
 
 			DROP => Drop,
@@ -1780,7 +1780,7 @@ impl Serialize for Instruction {
 			}),
 			CallIndirect(index, reserved) => op!(writer, CALLINDIRECT, {
 				VarUint32::from(index).serialize(writer)?;
-				Uint8::from(reserved).serialize(writer)?;
+				VarUint32::from(reserved).serialize(writer)?;
 			}),
 			Drop => op!(writer, DROP),
 			Select => op!(writer, SELECT),
@@ -2392,7 +2392,7 @@ impl fmt::Display for Instruction {
 			BrTable(ref table) => fmt_op!(f, "br_table", table.default),
 			Return => fmt_op!(f, "return"),
 			Call(index) => fmt_op!(f, "call", index),
-			CallIndirect(index, _) => fmt_op!(f, "call_indirect", index),
+			CallIndirect(index, table_ref) => fmt_op!(f, "call_indirect", index, table_ref),
 			Drop => fmt_op!(f, "drop"),
 			Select => fmt_op!(f, "select"),
 			GetLocal(index) => fmt_op!(f, "get_local", index),
