@@ -1,7 +1,7 @@
 // This short example provides the utility to inspect
 // wasm file data section.
 
-extern crate parity_wasm;
+extern crate linera_parity_wasm;
 
 use std::env;
 
@@ -11,12 +11,12 @@ fn main() {
 	let args = env::args().collect::<Vec<_>>();
 	if args.len() != 2 {
 		println!("Usage: {} somefile.wasm", args[0]);
-		return
+		return;
 	}
 
 	// Here we load module using dedicated for this purpose
 	// `deserialize_file` function (which works only with modules)
-	let module = parity_wasm::deserialize_file(&args[1]).expect("Failed to load module");
+	let module = linera_parity_wasm::deserialize_file(&args[1]).expect("Failed to load module");
 
 	// We query module for data section. Note that not every valid
 	// wasm module must contain a data section. So in case the provided

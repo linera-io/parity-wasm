@@ -2,11 +2,11 @@
 // Builder api introduced as a method for fast generation of
 // different small wasm modules.
 
-extern crate parity_wasm;
+extern crate linera_parity_wasm;
 
 use std::env;
 
-use parity_wasm::{builder, elements};
+use linera_parity_wasm::{builder, elements};
 
 fn main() {
 	// Example binary accepts one parameter which is the output file
@@ -14,7 +14,7 @@ fn main() {
 	let args = env::args().collect::<Vec<_>>();
 	if args.len() != 2 {
 		println!("Usage: {} output_file.wasm", args[0]);
-		return
+		return;
 	}
 
 	// Main entry for the builder api is the module function
@@ -44,5 +44,5 @@ fn main() {
 		.build();
 
 	// Module structure can be serialzed to produce a valid wasm file
-	parity_wasm::serialize_to_file(&args[1], module).unwrap();
+	linera_parity_wasm::serialize_to_file(&args[1], module).unwrap();
 }
