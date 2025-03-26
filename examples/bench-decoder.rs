@@ -1,4 +1,4 @@
-extern crate parity_wasm;
+extern crate linera_parity_wasm;
 extern crate time;
 
 use std::fs;
@@ -12,7 +12,7 @@ fn rate(file_name: &'static str, iterations: u64) {
 
 	for _ in 0..iterations {
 		let start = Instant::now();
-		let _module = parity_wasm::deserialize_file(file_name);
+		let _module = linera_parity_wasm::deserialize_file(file_name);
 		let end = Instant::now();
 
 		total_ms += (end - start).whole_milliseconds();

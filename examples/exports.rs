@@ -1,11 +1,11 @@
 // This examples allow to query all function exports of the
 // provided wasm module
 
-extern crate parity_wasm;
+extern crate linera_parity_wasm;
 
 use std::env::args;
 
-use parity_wasm::elements::{External, FunctionType, Internal, Module, Type};
+use linera_parity_wasm::elements::{External, FunctionType, Internal, Module, Type};
 
 // Auxillary function to resolve function type (signature) given it's callable index
 fn type_by_index(module: &Module, index: usize) -> FunctionType {
@@ -48,12 +48,12 @@ fn main() {
 	if args.len() < 2 {
 		println!("Prints export function names with and their types");
 		println!("Usage: {} <wasm file>", args[0]);
-		return
+		return;
 	}
 
 	// Here we load module using dedicated for this purpose
 	// `deserialize_file` function (which works only with modules)
-	let module = parity_wasm::deserialize_file(&args[1]).expect("File to be deserialized");
+	let module = linera_parity_wasm::deserialize_file(&args[1]).expect("File to be deserialized");
 
 	// Query the export section from the loaded module. Note that not every
 	// wasm module obliged to contain export section. So in case there is no

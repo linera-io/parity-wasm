@@ -1,16 +1,16 @@
-extern crate parity_wasm;
+extern crate linera_parity_wasm;
 
-use parity_wasm::elements::Section;
+use linera_parity_wasm::elements::Section;
 use std::env;
 
 fn main() {
 	let args = env::args().collect::<Vec<_>>();
 	if args.len() != 2 {
 		println!("Usage: {} somefile.wasm", args[0]);
-		return
+		return;
 	}
 
-	let module = parity_wasm::deserialize_file(&args[1]).expect("Failed to load module");
+	let module = linera_parity_wasm::deserialize_file(&args[1]).expect("Failed to load module");
 
 	println!("Module sections: {}", module.sections().len());
 
